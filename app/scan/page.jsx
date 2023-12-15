@@ -2,16 +2,10 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import QrReader from "react-qr-reader";
-import useAuthentication from "@/components/useAuth";
+import useAuthentication from "@/utils/useAuth";
+
 function Scan() {
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const accessToken = localStorage.getItem("user");
-      if (accessToken == null || accessToken == undefined) {
-        router.push("/");
-      }
-    }
-  }, [router]);
+  useAuthentication();
   const [data, setData] = useState("No Result");
   const router = useRouter();
   const handleErrorWebCam = (error) => {
