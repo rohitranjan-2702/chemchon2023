@@ -33,7 +33,7 @@ function Scan() {
       <div className=" h-1/2 w-1/2">
         <QrReader
           delay={300}
-          style={{ width: "100%" }}
+          // style={{ width: "100%" }}
           onError={handleErrorWebCam}
           onScan={handleScanWebCam}
           onLoad={console.log(`loaded`)}
