@@ -2,9 +2,9 @@
 import useAuthentication from "@/utils/useAuth";
 import React, { useEffect } from "react";
 
-const page = () => {
+const Ticket = () => {
   useAuthentication();
   return <div>Data: </div>;
 };
 
-export default page;
+export default Ticket;
