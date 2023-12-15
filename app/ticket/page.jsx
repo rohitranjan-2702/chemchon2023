@@ -1,6 +1,6 @@
 "use client";
-import useAuthentication from "@/components/useAuth";
-import React from "react";
+// import useAuthentication from "@/components/useAuth";
+import React, { useEffect } from "react";
 
 const page = (props) => {
   useEffect(() => {
