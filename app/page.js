@@ -14,6 +14,7 @@ import Link from "next/link";
 export default function Home() {
   const [err, setErr] = React.useState(false);
   const [show, setShow] = useState(false);
+
   // const { user, setUser } = useUserContext();
 
   const router = useRouter();
@@ -35,7 +36,8 @@ export default function Home() {
 
       console.log(user);
       // setUser(auth?.currentUser);
-      // await localStorage.setItem("user", JSON.stringify(user));
+      await localStorage.setItem("user", JSON.stringify(user));
+      router.push("/scan");
     } catch (error) {
       console.log(error);
       setErr(true);
@@ -53,7 +55,7 @@ export default function Home() {
           {/* <Image src="" width={150} className="mx-auto" alt="" /> */}
           <div className="mt-5">
             <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">
-              Log in to your account
+              Chemchon Admin LogIn
             </h3>
           </div>
         </div>

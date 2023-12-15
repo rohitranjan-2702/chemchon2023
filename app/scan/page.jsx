@@ -1,47 +1,45 @@
 "use client";
-import React, { useState, useRef } from "react";
-
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import QrReader from "react-qr-reader";
+import useAuthentication from "@/components/useAuth";
 function Scan() {
-  const [scanResultFile, setScanResultFile] = useState("");
-  const [scanResultWebCam, setScanResultWebCam] = useState("");
-  const qrRef = useRef(null);
-  const [data, setData] = useState("null");
-
-  const handleErrorFile = (error) => {
-    console.log(error);
-  };
-  const handleScanFile = (result) => {
-    if (result) {
-      setScanResultFile(result);
-    }
-  };
-  const onScanFile = () => {
-    qrRef.current.openImageDialog();
-  };
+  useAuthentication();
+  const [data, setData] = useState("No Result");
+  const router = useRouter();
   const handleErrorWebCam = (error) => {
     console.log(error);
+    alert(error);
+    router.refresh();
   };
   const handleScanWebCam = (result) => {
     if (result) {
-      setScanResultWebCam(result);
+      setData(result);
+      console.log(result);
+      const email = JSON.parse(result)?.email;
+      console.log(JSON.parse(result));
+      if (!email) {
+        alert("Invalid QR Code");
+        return;
+      }
+      router.push(`/ticket`);
+      localStorage.setItem("userEmail", email);
     }
   };
   return (
-    <div className="h-screen flex justify-center w-full">
-      <div>Qr Code Scan by Web Cam</div>
-      <div className="h-1/2 w-1/2">
+    <div className="h-screen flex flex-col items-center justify-center w-full space-y-4">
+      <div className="text-3xl ">QR Scanner</div>
+      <div className=" h-1/2 w-1/2">
         <QrReader
           delay={300}
-          style={{}}
+          style={{ width: "100%" }}
           onError={handleErrorWebCam}
           onScan={handleScanWebCam}
+          onLoad={console.log(`loaded`)}
         />
       </div>
 
-      <h3>Scanned By WebCam Code: {scanResultWebCam}</h3>
-
-      <p>{data}</p>
+      <h3 className="text-[12px]">Made by devs @GDSC HITK</h3>
     </div>
   );
 }
