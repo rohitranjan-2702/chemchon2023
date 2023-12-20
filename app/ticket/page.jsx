@@ -31,17 +31,20 @@ const Ticket = () => {
   };
 
   const checkIn1 = async (email) => {
-    const res = await fetch("https://chemcon-backend.onrender.com/api/check1", {
-      method: "POST",
-      body: JSON.stringify({
-        data: {
-          email: email,
+    const res = await fetch(
+      "https://chemcon-backend.onrender.com/onspot/check1",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          data: {
+            email: email,
+          },
+        }),
+        headers: {
+          "Content-Type": "application/json",
         },
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+      }
+    );
     const result = await res.json();
     console.log(result);
     setData(result?.data);
