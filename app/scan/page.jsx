@@ -13,18 +13,19 @@ function Scan() {
     alert(error);
     router.refresh();
   };
-  const handleScanWebCam = (result) => {
+  const handleScanWebCam = async (result) => {
     if (result) {
       setData(result);
       console.log(result);
       const email = JSON.parse(result)?.Email;
-      console.log(JSON.parse(result));
-      if (!email) {
-        alert("Invalid QR Code");
-        return;
-      }
-      router.push(`/ticket`);
+
+      // if (email === "") {
+      //   alert("Invalid QR Code");
+      //   return;
+      // }
+      console.log(email);
       localStorage.setItem("userEmail", email);
+      if (email !== "") router.push(`/ticket`);
     }
   };
   return (

@@ -30,75 +30,41 @@ const Ticket = () => {
     setData(result?.data);
   };
 
-  const checkIn1 = async (email) => {
-    const res = await fetch(
-      "https://chemcon-backend.onrender.com/onspot/check1",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          data: {
-            email: email,
+  const checkIn1 = async (e) => {
+    e.preventDefault();
+    try {
+      const email = localStorage.getItem("userEmail");
+      const res = await fetch(
+        "https://chemcon-backend.onrender.com/onspot/check1",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            data: {
+              email: email,
+            },
+          }),
+          headers: {
+            "Content-Type": "application/json",
           },
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const result = await res.json();
-    console.log(result);
-    setData(result?.data);
-    router.refresh();
-  };
-
-  const checkIn2 = async (email) => {
-    const res = await fetch("https://chemcon-backend.onrender.com/api/check2", {
-      method: "POST",
-      body: JSON.stringify({
-        data: {
-          email: email,
-        },
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const result = await res.json();
-    console.log(result);
-    setData(result?.data);
-    router.refresh();
-  };
-
-  const checkIn3 = async (email) => {
-    const res = await fetch("https://chemcon-backend.onrender.com/api/check3", {
-      method: "POST",
-      body: JSON.stringify({
-        data: {
-          email: email,
-        },
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const result = await res.json();
-    console.log(result);
-    setData(result?.data);
-    router.refresh();
+        }
+      );
+      const result = await res.json();
+      console.log(result);
+      setData(result?.data);
+      router.refresh();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
     const email = localStorage.getItem("userEmail");
-    if (!email) {
-      alert("Invalid QR Code");
-      router.push("/scan");
-      return;
-    }
+    // if (!email) {
+    //   alert("Invalid QR Code");
+    //   router.push("/scan");
+    //   return;
+    // }
     fetchData(email);
-
-    return () => {
-      localStorage.removeItem("userEmail");
-    };
   }, []);
 
   return (
@@ -134,7 +100,7 @@ const Ticket = () => {
               disabled={data?.checkin1}
               onClick={checkIn1}
             >
-              Day 1 CheckIn
+              {data?.checkin1 ? "CheckedIn" : "CheckIn"}
               <svg
                 class="ms-2 h-3.5 w-3.5 rtl:rotate-180"
                 aria-hidden="true"
@@ -151,56 +117,6 @@ const Ticket = () => {
                 />
               </svg>
             </button>
-            {/* TODO resolve chechIn */}
-            {/* <div className="flex flex-row gap-3">
-              
-              <button
-                href="#"
-                class="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 :bg-blue-600 :hover:bg-blue-700 :focus:ring-blue-800"
-                disabled={data?.checkin2}
-                onClick={checkIn2}
-              >
-                Day 2 CheckIn
-                <svg
-                  class="ms-2 h-3.5 w-3.5 rtl:rotate-180"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 14 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M1 5h12m0 0L9 1m4 4L9 9"
-                  />
-                </svg>
-              </button>
-              <button
-                href="#"
-                class="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 :bg-blue-600 :hover:bg-blue-700 :focus:ring-blue-800"
-                disabled={data?.checkin3}
-                onClick={checkIn3}
-              >
-                Day 3 CheckIn
-                <svg
-                  class="ms-2 h-3.5 w-3.5 rtl:rotate-180"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 14 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M1 5h12m0 0L9 1m4 4L9 9"
-                  />
-                </svg>
-              </button>
-            </div> */}
           </div>
         </div>
         <Link
