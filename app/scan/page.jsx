@@ -17,7 +17,7 @@ function Scan() {
     if (result) {
       setData(result);
       console.log(result);
-      const email = JSON.parse(result)?.Email;
+      const email = JSON.parse(result)?.Email || JSON.parse(result)?.email;
 
       // if (email === "") {
       //   alert("Invalid QR Code");
