@@ -97,7 +97,7 @@ const Ticket = () => {
             <button
               href="#"
               class="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 :bg-blue-600 :hover:bg-blue-700 :focus:ring-blue-800"
-              // disabled={data?.checkin1}
+              disabled={data?.checkin1}
               onClick={checkIn1}
             >
               {data?.checkin1 ? "User has checkedIn" : "CheckIn"}
